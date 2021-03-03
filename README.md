@@ -159,9 +159,9 @@ A sensible approach is to build up from the unit tests to the integration tests 
 Try the following two approaches:
 
 1. For training the digipet, start with making the `trainDigipet` unit tests pass and then move onto the `/digipet/train` unit tests
-2. For feeding the digipet, start with making the `/digipet/feed` unit tests pass and then move onto the `/digipet/feed` unit tests
+2. For feeding the digipet, start with making the `/digipet/feed` unit tests pass and then move onto the `feedDigipet` unit tests
 
-## Exercise 2: TDD (specification provided) - ignoring
+## Exercise 3: TDD (specification provided) - ignoring
 
 > 🎯 **Success criterion:** you have added passing tests for ignoring the digipet following the below criteria
 
@@ -175,7 +175,7 @@ The desired behaviour is as follows:
 
 Write some unit tests and integration tests for this, then write the code to make it pass.
 
-## Exercise 3: TDD (no specification) - rehoming
+## Exercise 4: TDD (no specification) - rehoming
 
 > 🎯 **Success criterion:** you have a specification, tests and passing code for rehoming a digipet
 
@@ -187,6 +187,6 @@ Unlike above, we're not giving you the prescriptive behaviour - it's up to you t
 2. Write tests for this behaviour (unit tests and integration tests)
 3. Write the code to pass your tests
 
-## Exercise 4: Commentary and reflection
+## Exercise 5: Commentary and reflection
 
 > 🎯 **Success criterion:** documented reflections.
