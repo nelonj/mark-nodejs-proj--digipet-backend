@@ -111,8 +111,8 @@ describe.skip("trainDigipet", () => {
 describe("walkDigipet", () => {
   it("increases digipet happiness by 10 and decreases nutrition by 5 (to represent need for sustenance)", () => {
     // setup
-    setDigipet(INITIAL_DIGIPET);
-    expect(getDigipet()).toStrictEqual(INITIAL_DIGIPET);
+    setDigipet(INITIAL_DIGIPET); //updating Steve 
+    expect(getDigipet()).toStrictEqual(INITIAL_DIGIPET); //providing the current version of Steve
 
     // act
     walkDigipet();
@@ -127,7 +127,7 @@ describe("walkDigipet", () => {
 
   it("cannot increase happiness past 100", () => {
     // setup
-    setDigipet({ happiness: 95, nutrition: 50, discipline: 50 });
+    setDigipet({ happiness: 96, nutrition: 50, discipline: 50 });
 
     // act
     walkDigipet();

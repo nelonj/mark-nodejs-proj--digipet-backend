@@ -22,7 +22,7 @@ const initialDigipet: Digipet = {
 export const INITIAL_DIGIPET = Object.freeze(initialDigipet);
 
 /**
- * The user's digipet (if they have one).
+ * The user's digipet (if they have one) = STEVE
  *
  * Avoid directly manipulating this - you should access it through the getter (getDigipet) and update it through the setter (setDigipet).
  *
@@ -32,12 +32,13 @@ export const INITIAL_DIGIPET = Object.freeze(initialDigipet);
  */
 export let _userDigipet: Digipet | undefined;
 
+
 /**
  * Get the data for the user digipet (if it exists) - but not the underlying object reference (to protect the data from accidental changes)
  */
 export function getDigipet(): Digipet | null {
   // spread to create a shallow copy to avoid mutation
-  return _userDigipet ? { ..._userDigipet } : null;
+  return (_userDigipet ? { ..._userDigipet } : null);
 }
 
 /**
@@ -60,7 +61,7 @@ export function updateDigipetBounded(
   digipetKey: keyof Digipet,
   netUpdate: number
 ): void {
-  const digipetData = getDigipet(); // is a shallow copy
+  const digipetData = getDigipet(); // is a shallow copy: will return a copy of my userDigipet's curretn status
   if (digipetData) {
     const valueToBound = digipetData[digipetKey] + netUpdate;
     if (valueToBound > 100) {

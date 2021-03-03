@@ -178,7 +178,7 @@ describe("action routes", () => {
   describe("GET /digipet/walk", () => {
     test("if the user has a digipet, it responds with a message about the walk", async () => {
       // setup: reset digipet
-      setDigipet(INITIAL_DIGIPET);
+      setDigipet(INITIAL_DIGIPET); // simulating hatching Steve: getting rid of the else scenario
 
       const response = await supertest(app).get("/digipet/walk");
 

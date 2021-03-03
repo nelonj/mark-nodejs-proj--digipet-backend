@@ -21,10 +21,10 @@ describe("When a user walks a digipet repeatedly, its happiness increases by 10 
       discipline: 60,
     };
     setDigipet(startingDigipet);
-  });
+  }); // has this done yarn start and remains valid for duration of the describe? where else would our varaible updates be stored?
 
   test("GET /digipet informs them that they have a digipet with expected stats", async () => {
-    const response = await supertest(app).get("/digipet");
+    const response = await supertest(app).get("/digipet"); //is this equivalent to a yarn start each time? otherwise how would this launch an 'ephemeral' port?
     expect(response.body.message).toMatch(/your digipet/i);
     expect(response.body.digipet).toHaveProperty("happiness", 75);
   });

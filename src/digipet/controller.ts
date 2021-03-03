@@ -20,8 +20,8 @@ export function hatchDigipet(): Digipet {
   } else {
     // spread to avoid accidental mutation
     const newDigipet = { ...INITIAL_DIGIPET };
-    setDigipet(newDigipet);
-    return newDigipet;
+    setDigipet(newDigipet); // userDigipet now = a copy of a copy of INITIAL DIGIPET
+    return newDigipet; // BUT hatchDigipet is returning the copy of INITIAL DIGIPET
   }
 }
 

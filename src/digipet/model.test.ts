@@ -1,4 +1,4 @@
-import { Digipet, getDigipet, updateDigipetBounded, setDigipet } from "./model";
+import { Digipet, getDigipet, updateDigipetBounded, setDigipet, _userDigipet } from "./model";
 
 describe("getDigipet", () => {
   it("gets the stats for the user digipet (but not the underlying object)", () => {
@@ -19,18 +19,18 @@ describe("getDigipet", () => {
 
   it("resists accidental mutation", () => {
     const digipetTest: Digipet = {
-      happiness: 60,
+      happiness: 60, //this has turned to zero after line 30
       nutrition: 60,
       discipline: 60,
     };
     setDigipet(digipetTest);
-    const digipetToMutate = getDigipet();
+    const digipetToMutate = getDigipet(); //a copy of a copy of digipetTest
 
     // act
-    digipetTest.happiness = 0;
-    digipetToMutate!.nutrition = 0;
+    digipetTest.happiness = 0; //won't affect Steve
+    digipetToMutate!.nutrition = 0; // digipetToMutate has been updated, but it's not Steve YET (would need to run set/get) - however, in this context, it will never become Steve because we don't
 
-    expect(getDigipet()).toStrictEqual({
+    expect(getDigipet()).toStrictEqual({ //by calling getDigipet again: making another copy of the INITIAL COPY of digipetTest (so: unmodified!!)
       happiness: 60,
       nutrition: 60,
       discipline: 60,
@@ -173,7 +173,7 @@ describe("setDigipet", () => {
     // same deep value after execution
     expect(getDigipet()).toStrictEqual(sampleDigipet);
 
-    // does not assign reference - to prevent accidental mutation
+    // does not assign reference - to prevent accidental mutation : catches out copies!! 
     expect(getDigipet()).not.toBe(sampleDigipet);
   });
 });

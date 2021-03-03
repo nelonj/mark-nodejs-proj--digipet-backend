@@ -40,14 +40,14 @@ app.get("/digipet", (req, res) => {
 });
 
 app.get("/digipet/hatch", (req, res) => {
-  const digipet = getDigipet();
+  const digipet = getDigipet(); // checks whether userDigipet has been assigned a value
   if (digipet) {
     res.json({
       message: "You can't hatch a digipet now because you already have one!",
       digipet,
     });
   } else {
-    const digipet = hatchDigipet();
+    const digipet = hatchDigipet(); // return copy of the frozen template + set userDigipet to said copy
     res.json({
       message:
         "You have successfully hatched an adorable new digipet. Just the cutest.",
@@ -62,7 +62,7 @@ app.get("/digipet/walk", (req, res) => {
     walkDigipet();
     res.json({
       message: "You walked your digipet. It looks happier now!",
-      digipet: getDigipet(),
+      digipet: getDigipet(), // my userDigipet because getDigipet will be returning the digipet interface (and NOT null)
     });
   } else {
     res.json({
