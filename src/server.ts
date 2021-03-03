@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { getDigipet } from "./digipet/model";
-import { hatchDigipet, walkDigipet } from "./digipet/controller";
+import { feedDigipet, hatchDigipet, trainDigipet, walkDigipet } from "./digipet/controller";
 
 const app = express();
 
@@ -71,5 +71,30 @@ app.get("/digipet/walk", (req, res) => {
     });
   }
 });
+
+app.get("/digipet/train", (req, res) => { //Tests past with just lines 77-80 (no test built for if/else)
+  if (getDigipet()) {
+    trainDigipet();
+    res.json({
+      message: "You have trained your digipet",
+      digipet: getDigipet(),
+    })
+  } else {
+    res.json({
+      message:
+        "You don't have a digipet to train! Try hatching one with /digipet/hatch",
+    });
+  }
+});
+
+app.get("/digipet/feed", (req, res) => {
+  feedDigipet();
+  res.json(
+    {
+      message: "You have been feeding your digipet.",
+      digipet: getDigipet()
+    }
+  )
+})
 
 export default app;
