@@ -1,6 +1,7 @@
 import {
   feedDigipet,
   hatchDigipet,
+  ignoreDigipet,
   trainDigipet,
   walkDigipet,
 } from "./controller";
@@ -147,3 +148,26 @@ describe("walkDigipet", () => {
     expect(getDigipet()).toHaveProperty("nutrition", 0);
   });
 });
+
+describe("ignoreDigipet", ()=> {
+  test("decrease all stats by 10 (if all digipet stats are above 10)", () => {
+    setDigipet(INITIAL_DIGIPET);
+    expect(getDigipet()).toStrictEqual(INITIAL_DIGIPET); //test really to check whether setDigipet and getDigipet work....
+    
+    ignoreDigipet();
+
+    expect(getDigipet()).toStrictEqual({'happiness': INITIAL_DIGIPET.happiness - 10, 'nutrition': INITIAL_DIGIPET.nutrition -10, 'discipline': INITIAL_DIGIPET.discipline -10});
+  })
+
+  it("cannot decrease stats below 0", () => {
+    // setup
+    setDigipet({ happiness: 9, nutrition: 5, discipline: 0 });
+
+    // act
+    ignoreDigipet();
+
+    // assert
+    // expect(getDigipet()).toHaveProperty("nutrition", 0);
+    expect(getDigipet()).toStrictEqual({'happiness': 0, 'nutrition': 0, 'discipline': 0});
+  });
+})

@@ -13,7 +13,7 @@ import app from "../server";
  */
 
 describe("When a user walks a digipet repeatedly, its happiness increases by 10 each time until it eventually maxes out at 100", () => {
-  beforeAll(() => {
+  beforeAll(() => { 
     // setup: give an initial digipet
     const startingDigipet: Digipet = {
       happiness: 75,

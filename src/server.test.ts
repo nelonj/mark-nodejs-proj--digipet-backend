@@ -4,6 +4,7 @@ import {
   hatchDigipet,
   trainDigipet,
   walkDigipet,
+  ignoreDigipet
 } from "./digipet/controller";
 import { INITIAL_DIGIPET, setDigipet } from "./digipet/model";
 import app from "./server";
@@ -93,11 +94,12 @@ describe("action routes", () => {
   test("when the user does not have a digipet, action routes direct them to hatch a digipet and do not call their relevant controllers", async () => {
     const routesAndControllers = {
       /* test for these once written */
-      // "/digipet/feed": feedDigipet,
-      // '/digipet/train': trainDigipet,
+      "/digipet/feed": feedDigipet,
+      '/digipet/train': trainDigipet,
       "/digipet/walk": walkDigipet,
+      "/digipet/ignore": ignoreDigipet,
     };
-
+ // []
     for (let [route, controller] of Object.entries(routesAndControllers)) {
       // reset mock of the controller
       if (jest.isMockFunction(controller) /* type guard */) {
@@ -205,3 +207,25 @@ describe("action routes", () => {
     });
   });
 });
+
+describe("GET /digipet/ignore", () => {
+  test("if user has digipet, it responds with a message about ignoring", async () => {
+    setDigipet(INITIAL_DIGIPET);
+    const response = await supertest(app).get("/digipet/ignore");
+    expect(response.body.message).toMatch(/ignore/i);
+    expect(response.body.digipet).toHaveProperty("happiness");
+    expect(response.body.digipet).toHaveProperty("nutrition");
+    expect(response.body.digipet).toHaveProperty("discipline");
+  })
+  
+  test("delegate state change to the ignoreDigipet function", async () => {
+    setDigipet(INITIAL_DIGIPET);
+    if(jest.isMockFunction(ignoreDigipet)) {
+      ignoreDigipet.mockReset()
+    }
+
+    await supertest(app).get("/digipet/ignore");
+    expect(ignoreDigipet).toHaveBeenCalledTimes(1);
+  })
+})
+

@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { getDigipet } from "./digipet/model";
-import { feedDigipet, hatchDigipet, trainDigipet, walkDigipet } from "./digipet/controller";
+import { feedDigipet, hatchDigipet, ignoreDigipet, trainDigipet, walkDigipet, rehomeDigipet } from "./digipet/controller";
 
 const app = express();
 
@@ -64,11 +64,11 @@ app.get("/digipet/walk", (req, res) => { //a ROUTE HANDLER: called whenever endp
       message: "You walked your digipet. It looks happier now!",
       digipet: getDigipet(), // my userDigipet because getDigipet will be returning the digipet interface (and NOT null)
     });
-  } else { res //not all of its methods send something back: need to explicitly call one of them
-    // res.json({
-    //   message:
-    //     "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
-    // });
+  } else {  //not all of its methods send something back: need to explicitly call one of them
+    res.json({
+      message:
+        "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
+    });
   }
 });
 
@@ -88,13 +88,42 @@ app.get("/digipet/train", (req, res) => { //Tests past with just lines 77-80 (no
 });
 
 app.get("/digipet/feed", (req, res) => {
+  
+  if (getDigipet()){
   feedDigipet();
   res.json(
     {
       message: "You have been feeding your digipet.",
       digipet: getDigipet()
     }
-  )
+  )}
+  else {
+    res.json({
+      message: "You don't have a digipet. Try going  to /digipet/hatch"
+    })
+  }
+})
+
+app.get('/digipet/ignore', (req, res) => {
+  if(getDigipet()) {
+    ignoreDigipet();
+    res.json({
+      message: "If you ignore your digipet, it will wittle and die",
+      digipet: getDigipet()
+    })
+  }
+  else {
+    res.json({
+      message: "you don't have a digipet. try hatching one at /digipet/hatch"
+    })
+  }
+})
+
+app.get('/digipet/rehome', (req, res) => {
+  rehomeDigipet();
+  res.json({
+    message: "Your digipet has been rehomed. You can hatch another one at /digipet/hatch"
+  })
 })
 
 export default app;
