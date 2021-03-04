@@ -55,20 +55,20 @@ app.get("/digipet/hatch", (req, res) => {
     });
   }
 });
-
-app.get("/digipet/walk", (req, res) => {
+ //res: an object for creating/sending responses, but NOT a response itself
+app.get("/digipet/walk", (req, res) => { //a ROUTE HANDLER: called whenever endpoint clicked
   // check the user has a digipet to walk
   if (getDigipet()) {
     walkDigipet();
-    res.json({
+    res.json({ //an express method that creates an HTTP response
       message: "You walked your digipet. It looks happier now!",
       digipet: getDigipet(), // my userDigipet because getDigipet will be returning the digipet interface (and NOT null)
     });
-  } else {
-    res.json({
-      message:
-        "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
-    });
+  } else { res //not all of its methods send something back: need to explicitly call one of them
+    // res.json({
+    //   message:
+    //     "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
+    // });
   }
 });
 

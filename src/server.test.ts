@@ -21,9 +21,10 @@ import app from "./server";
  */
 jest.mock("./digipet/controller");
 
+//SUPERTEST: library that simulates making requests via HTTP methods
 describe("GET /", () => {
   it("provides a nod to instructions in the response body", async () => {
-    const response = await supertest(app).get("/");
+    const response = await supertest(app).get("/"); //could be any other HTTP method
     expect(response.body.message).toMatch("/instructions");
   });
 });
