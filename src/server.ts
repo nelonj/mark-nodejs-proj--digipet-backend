@@ -34,7 +34,8 @@ app.get("/digipet", (req, res) => {
     });
   } else {
     res.json({
-      message: "You don't have a digipet yet! Try hatching one with /hatch",
+      devdescription: "You don't have a digipet yet! Try hatching one with /hatch",
+      message: "You don't have a digipet yet! Try hatching one with the hatch button",
       digipet: undefined,
     });
   }
@@ -67,8 +68,8 @@ app.get("/digipet/walk", (req, res) => { //a ROUTE HANDLER: called whenever endp
     });
   } else {  //not all of its methods send something back: need to explicitly call one of them
     res.json({
-      message:
-        "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
+      devdescription: "You don't have a digipet yet! Try hatching one with /hatch",
+      message: "You don't have a digipet yet! Try hatching one with the hatch button",
     });
   }
 });
