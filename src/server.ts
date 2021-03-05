@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { getDigipet } from "./digipet/model";
 import { feedDigipet, hatchDigipet, ignoreDigipet, trainDigipet, walkDigipet, rehomeDigipet } from "./digipet/controller";
+import { getDefaultSettings } from "http2";
 
 const app = express();
 
@@ -41,7 +42,8 @@ app.get("/digipet", (req, res) => {
     });
   } else {
     res.json({
-      message: "You don't have a digipet yet! Try hatching one with /hatch",
+      devdescription: "You don't have a digipet yet! Try hatching one with /hatch",
+      message: "You don't have a digipet yet! Try hatching one with the hatch button",
       digipet: undefined,
     });
   }
@@ -74,8 +76,8 @@ app.get("/digipet/walk", (req, res) => { //a ROUTE HANDLER: called whenever endp
     });
   } else {  //not all of its methods send something back: need to explicitly call one of them
     res.json({
-      message:
-        "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
+      devdescription: "You don't have a digipet yet! Try hatching one with /hatch",
+      message: "You don't have a digipet yet! Try hatching one with the hatch button",
     });
   }
 });
@@ -128,10 +130,16 @@ app.get('/digipet/ignore', (req, res) => {
 })
 
 app.get('/digipet/rehome', (req, res) => {
-  rehomeDigipet();
-  res.json({
-    message: "Your digipet has been rehomed. You can hatch another one at /digipet/hatch"
-  })
+  if (getDigipet()) {
+    rehomeDigipet();
+    res.json({
+      message: "Your digipet has been rehomed. You can hatch another one at /digipet/hatch"
+    })
+  } else {
+    res.json({
+      message: "You silly fool, you cannot rehome nothingness - get yourself a Steve @ /digipet/hatch - T&Cs apply"
+    })
+  }
 })
 
 export default app;

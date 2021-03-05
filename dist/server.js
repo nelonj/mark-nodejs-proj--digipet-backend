@@ -32,7 +32,8 @@ app.get("/digipet", (req, res) => {
     }
     else {
         res.json({
-            message: "You don't have a digipet yet! Try hatching one with /hatch",
+            devdescription: "You don't have a digipet yet! Try hatching one with /hatch",
+            message: "You don't have a digipet yet! Try hatching one with the hatch button",
             digipet: undefined,
         });
     }
@@ -65,7 +66,8 @@ app.get("/digipet/walk", (req, res) => {
     }
     else { //not all of its methods send something back: need to explicitly call one of them
         res.json({
-            message: "You don't have a digipet to walk! Try hatching one with /digipet/hatch",
+            devdescription: "You don't have a digipet yet! Try hatching one with /hatch",
+            message: "You don't have a digipet yet! Try hatching one with the hatch button",
         });
     }
 });
@@ -112,9 +114,16 @@ app.get('/digipet/ignore', (req, res) => {
     }
 });
 app.get('/digipet/rehome', (req, res) => {
-    controller_1.rehomeDigipet();
-    res.json({
-        message: "Your digipet has been rehomed. You can hatch another one at /digipet/hatch"
-    });
+    if (model_1.getDigipet()) {
+        controller_1.rehomeDigipet();
+        res.json({
+            message: "Your digipet has been rehomed. You can hatch another one at /digipet/hatch"
+        });
+    }
+    else {
+        res.json({
+            message: "You silly fool, you cannot rehome nothingness - get yourself a Steve @ /digipet/hatch - T&Cs apply"
+        });
+    }
 });
 exports.default = app;
