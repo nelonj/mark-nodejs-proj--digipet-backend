@@ -21,7 +21,12 @@ app.get("/", (req, res) => {
   });
 });
 
-
+app.get("/muhammad", (req, res) => {
+  res.json({
+    message:
+      "Sup Mischa!"
+  })
+})
 
 
 
